@@ -16,7 +16,7 @@ namespace HuntStat
 
         public  static PerkInfo[] GeneratePerkInfoArray()
         {
-            var resultPath = @".\result.txt";
+            var resultPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory + @"result.txt");
             var resultLines = File.ReadAllLines(resultPath);
 
             var resultArray = new PerkInfo[resultLines.Length - 1];

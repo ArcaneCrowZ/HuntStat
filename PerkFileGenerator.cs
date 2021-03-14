@@ -21,7 +21,7 @@ namespace HuntStat
         /// <returns>Массив строк, где каждому перку отведена своя строка.</returns>
         private static string[] GenerateSourseArray()
         {
-            var sourseFilePath = @".\perks.txt";
+            var sourseFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory + @"perks.txt");
 
             if (!File.Exists(sourseFilePath))
                 throw new Exception("В папке с .exe нет файла-источника для перков.");
@@ -34,9 +34,9 @@ namespace HuntStat
         /// </summary>
         /// <param name="sourse">Массив строк из файла sourse.txt</param>
         /// <returns>Если все пройдет хорошо, возвращается true.</returns>
-        private static bool GeneratePerkListFromSourse(string[] sourse)
+        private static void GeneratePerkListFromSourse(string[] sourse)
         {
-            var resultPath = @".\result.txt";
+            var resultPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory + @"result.txt");
 
             if (File.Exists(resultPath))
                 File.Delete(resultPath);
@@ -54,7 +54,7 @@ namespace HuntStat
                 }
             }
 
-            return true;
+            Console.WriteLine("Perk info generated");
         }
     }
 }

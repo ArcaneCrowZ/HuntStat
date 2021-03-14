@@ -6,13 +6,12 @@ namespace HuntStat
 {
     static class HuntStat
     {
-        public static string LogDirectorPath = @".\Logs";
-        public static PerkInfo[] PerksInfo = PerkInfo.GeneratePerkInfoArray();
+        public static string LogDirectorPath;
+        public static PerkInfo[] PerksInfo;
 
         public static void Main()
         {
-            InitializeDirectory();
-            PerkFileGenerator.GeneratePerkList();
+            Initialize();
 
             while (true)
             {
@@ -40,7 +39,7 @@ namespace HuntStat
 
             if (input == "help")
             {
-                Console.WriteLine("b чтобы писать в файл бутчера, rnb - всратая катка, OTD - нормальная");
+                Console.WriteLine("b чтобы писать в файл бутчера, rnb - всратая катка, otd - нормальная");
             }
 
             return false;
@@ -50,33 +49,19 @@ namespace HuntStat
         /// Содает папку Log в текущей папке проекта.
         /// После этого, выводит сообщение об этом на консоль.
         /// </summary>
-        private static void InitializeDirectory()
+        private static void Initialize()
         {
-            string path = @".";
+            PerkFileGenerator.GeneratePerkList();
 
-            var dirs = Directory.GetDirectories(path);
+            LogDirectorPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory + @"\Logs");
 
-            if (!Directory.Exists(path + @"\Logs"))
+            if (!Directory.Exists(LogDirectorPath))
             {
-                Directory.CreateDirectory(path + @"\Logs");
+                Directory.CreateDirectory(LogDirectorPath);
                 Console.WriteLine("Log directory created!");
             }
-        }
 
-        /// <summary>
-        /// В случае отсутствия директориии Log по конкретному пути, создает ее. 
-        /// После этого, сообщает об этом на консоль.
-        /// </summary>
-        /// <param name="path"></param>
-        private static void Initialize(string path)
-        {
-            var dirs = Directory.GetDirectories(path);
-
-            if (!Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-                Console.WriteLine("Log directory created!");
-            }
+            PerksInfo = PerkInfo.GeneratePerkInfoArray();
         }
     }
 }
